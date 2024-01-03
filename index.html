@@ -4,85 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramedic Calculator</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.2/brython.min.js"></script>
 </head>
 <body>
     <h1>Paramedic Drug Dosage Calculator</h1>
     
+    <label for="medication">Select the medication:</label>
+    <select id="medication">
+        <option value="Rocuronium 10mg/mL">Rocuronium 10mg/mL</option>
+        <option value="Etomidate 2mg/mL">Etomidate 2mg/mL</option>
+        <option value="Succinylcholine 20mg/mL">Succinylcholine 20mg/mL</option>
+        <!-- Add more medication options here -->
+    </select>
+
     <label for="dosage">Enter the drug dosage needed in mg:</label>
     <input type="text" id="dosage">
     
-    <label for="result">Required dosage in mL:</label>
+    <button onclick="calculateDosage()">Calculate Dosage</button>
+    
     <p id="result"></p>
-    
-    <script type="text/python">
-        import tkinter as tk
-from tkinter import ttk
 
-# Define a function to calculate drug dosage
-def calculate_dosage():
-    try:
-        # Get the selected drug and dosage needed from the user inputs
-        selected_drug = drug_var.get()
-        dosage_needed_mg = float(dosage_entry.get())
-        
-        # Retrieve the concentration for the selected drug from the dictionary
-        concentration_mg_per_ml = drugs[selected_drug]
-        
-        # Calculate the dosage in mL
-        dosage_ml = dosage_needed_mg / concentration_mg_per_ml
-        
-        # Display the result
-        result_label.config(text=f"Required dosage in mL: {dosage_ml:.2f}")
-    except ValueError:
-        result_label.config(text="Invalid input. Please enter valid numeric values.")
+    <script>
+        function calculateDosage() {
+            // Get selected medication and dosage from the user inputs
+            const selectedMedication = document.getElementById('medication').value;
+            const dosageNeededMg = parseFloat(document.getElementById('dosage').value);
 
-# Main program
-if __name__ == "__main__":
-    # Create a dictionary of drugs and their concentrations (mg per mL)
-    drugs = {
-        "Rocuronium 10mg/mL": 10,
-        "Etomidate 2mg/mL": 2,
-        "Succinylcholine 20mg/mL": 20,
-        "Epinephrine 1:10 (0.1mg/mL)": 0.1,
-        "Amiodarone 50mg/mL": 50,
-        "Magnesium Sulfate 500mg/mL": 500,
-        "Calcium Chloride 100mg/mL": 100,
-        "50% Dextrose 500mg/mL": 500,
-        "25% Dextrose 250mg/mL": 250,
-        "Sodium Bicarbonate 1mEq/mL": 1,
-        "Atropine 0.1mg/mL": 0.1,
-        "Lidocaine 20mg/mL": 20
-    }
-    
-    # Create a GUI window
-    root = tk.Tk()
-    root.title("Paramedic Drug Dosage Calculator")
-    
-    # Create a label and entry for dosage input
-    dosage_label = tk.Label(root, text="Enter the drug dosage needed in mg:")
-    dosage_label.pack()
-    dosage_entry = tk.Entry(root)
-    dosage_entry.pack()
-    
-    # Create a dropdown menu for drug selection
-    drug_var = tk.StringVar()
-    drug_label = tk.Label(root, text="Select the drug:")
-    drug_label.pack()
-    drug_dropdown = ttk.Combobox(root, textvariable=drug_var, values=list(drugs.keys()))
-    drug_dropdown.pack()
-    
-    # Create a button to calculate the dosage
-    calculate_button = tk.Button(root, text="Calculate Dosage", command=calculate_dosage)
-    calculate_button.pack()
-    
-    # Create a label to display the result
-    result_label = tk.Label(root, text="")
-    result_label.pack()
-    
-    # Start the GUI event loop
-    root.mainloop()
+            // Define concentration values for medications (mg per mL)
+            const concentrationValues = {
+                "Rocuronium 10mg/mL": 10,
+                "Etomidate 2mg/mL": 2,
+                "Succinylcholine 20mg/mL": 20,
+                // Add more medications and concentrations here
+            };
 
+            // Calculate the dosage in mL based on the selected medication
+            if (selectedMedication in concentrationValues) {
+                const concentrationMgPerMl = concentrationValues[selectedMedication];
+                const dosageMl = dosageNeededMg / concentrationMgPerMl;
+                document.getElementById('result').textContent = `Required dosage in mL: ${dosageMl.toFixed(2)}`;
+            } else {
+                document.getElementById('result').textContent = "Invalid medication selection.";
+            }
+        }
     </script>
 </body>
 </html>
