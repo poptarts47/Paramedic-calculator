@@ -37,6 +37,26 @@
             border: 1px solid #ccc;
             border-radius: 3px;
         }
+        /* Add styling for clickable links */
+   .column-box {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-align: center;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out; /* Add transform transition */
+        }
+        .column-link {
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+        .column-link:hover {
+            background-color: #ddd;
+        }
+        .column-link:active .column-box {
+            background-color: #e8d03c; /* Change background color of the entire box when clicked */
+            transform: scale(0.75); /* Shrink the box inward by 5% when clicked */
+        }
     </style>
 </head>
 <body>
@@ -144,5 +164,28 @@
             element.style.opacity = '1';
         }
     </script>
+    <br> <!-- Permanent line break -->
+<!-- Add your additional code here -->
+ <!-- Bootstrap columns with clickable links -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="https://ncecc.net/wp-content/uploads/2023/12/ALS-Protocols-Grant-Okanogan-Chelan-Douglas-Counties-2023.pdf" class="column-link" target="_blank">
+                    <div class="column-box">ALS Protocols</div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="column-link" target="_blank">
+                    <div class="column-box">Link 2</div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="#" class="column-link" target="_blank">
+                    <div class="column-box">Link 3</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
