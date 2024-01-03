@@ -13,11 +13,20 @@
         <option value="Rocuronium 10mg/mL">Rocuronium 10mg/mL</option>
         <option value="Etomidate 2mg/mL">Etomidate 2mg/mL</option>
         <option value="Succinylcholine 20mg/mL">Succinylcholine 20mg/mL</option>
-        <!-- Add more medication options here -->
+        <option value="Epinephrine 1:10 (0.1mg/mL)">Epinephrine 1:10 (0.1mg/mL)</option>
+        <option value="Amiodarone 50mg/mL">Amiodarone 50mg/mL</option>
+        <option value="Magnesium Sulfate 500mg/mL">Magnesium Sulfate 500mg/mL</option>
+        <option value="Calcium Chloride 100mg/mL">Calcium Chloride 100mg/mL</option>
+        <option value="50% Dextrose 500mg/mL">50% Dextrose 500mg/mL</option>
+        <option value="25% Dextrose 250mg/mL">25% Dextrose 250mg/mL</option>
+        <option value="Sodium Bicarbonate 1mEq/mL">Sodium Bicarbonate 1mEq/mL</option>
+        <option value="Atropine 0.1mg/mL">Atropine 0.1mg/mL</option>
+        <option value="Lidocaine 20mg/mL">Lidocaine 20mg/mL</option>
+        <!-- Add more medications and concentrations here -->
     </select>
 
-    <label for="dosage">Enter the drug dosage needed in mg:</label>
-    <input type="text" id="dosage">
+    <label for="dosageMg">Enter the drug dosage needed in mg:</label>
+    <input type="text" id="dosageMg">
     
     <button onclick="calculateDosage()">Calculate Dosage</button>
     
@@ -25,23 +34,32 @@
 
     <script>
         function calculateDosage() {
-            // Get selected medication and dosage from the user inputs
+            // Get selected medication and dosage in mg from the user inputs
             const selectedMedication = document.getElementById('medication').value;
-            const dosageNeededMg = parseFloat(document.getElementById('dosage').value);
+            const dosageMg = parseFloat(document.getElementById('dosageMg').value);
 
             // Define concentration values for medications (mg per mL)
             const concentrationValues = {
                 "Rocuronium 10mg/mL": 10,
                 "Etomidate 2mg/mL": 2,
                 "Succinylcholine 20mg/mL": 20,
+                "Epinephrine 1:10 (0.1mg/mL)": 0.1,
+                "Amiodarone 50mg/mL": 50,
+                "Magnesium Sulfate 500mg/mL": 500,
+                "Calcium Chloride 100mg/mL": 100,
+                "50% Dextrose 500mg/mL": 500,
+                "25% Dextrose 250mg/mL": 250,
+                "Sodium Bicarbonate 1mEq/mL": 1,
+                "Atropine 0.1mg/mL": 0.1,
+                "Lidocaine 20mg/mL": 20,
                 // Add more medications and concentrations here
             };
 
-            // Calculate the dosage in mL based on the selected medication
+            // Calculate the desired dosage in mL based on the selected medication
             if (selectedMedication in concentrationValues) {
                 const concentrationMgPerMl = concentrationValues[selectedMedication];
-                const dosageMl = dosageNeededMg / concentrationMgPerMl;
-                document.getElementById('result').textContent = `Required dosage in mL: ${dosageMl.toFixed(2)}`;
+                const dosageMl = dosageMg / concentrationMgPerMl;
+                document.getElementById('result').textContent = `Desired dosage in mL: ${dosageMl.toFixed(2)} mL`;
             } else {
                 document.getElementById('result').textContent = "Invalid medication selection.";
             }
