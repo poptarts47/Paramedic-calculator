@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramedic Calculator</title>
+    <style>
+        /* Styling for the result display */
+        #result, #conversionResult {
+            background-color: rgba(0, 0, 255, 0.2); /* Blue semi-transparent background */
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+        }
+    </style>
 </head>
 <body>
     <h1>Paramedic Drug Dosage Calculator</h1>
@@ -25,12 +35,23 @@
         <!-- Add more medications and concentrations here -->
     </select>
 
-    <label for="dosageMg">Enter the drug dosage needed in mg:</label>
+    <label for="dosageMg">Enter the mg to be given to pt:</label>
     <input type="text" id="dosageMg">
     
     <button onclick="calculateDosage()">Calculate Dosage</button>
     
     <p id="result"></p>
+
+    <hr> <!-- Horizontal line to separate calculators -->
+
+    <h2>Convert Pounds (lbs) to Kilograms (kg)</h2>
+    
+    <label for="pounds">Enter the weight in pounds (lbs):</label>
+    <input type="text" id="pounds">
+    
+    <button onclick="convertPoundsToKg()">Convert</button>
+    
+    <p id="conversionResult"></p>
 
     <script>
         function calculateDosage() {
@@ -59,10 +80,32 @@
             if (selectedMedication in concentrationValues) {
                 const concentrationMgPerMl = concentrationValues[selectedMedication];
                 const dosageMl = dosageMg / concentrationMgPerMl;
-                document.getElementById('result').textContent = `Desired dosage in mL: ${dosageMl.toFixed(2)} mL`;
+
+                // Display the result with a fade-in effect
+                const result = document.getElementById('result');
+                result.textContent = `Desired dosage: ${dosageMl.toFixed(2)} mL`;
+                result.style.display = 'block'; // Display the result
+                fadeIn(result);
             } else {
                 document.getElementById('result').textContent = "Invalid medication selection.";
             }
+        }
+
+        function convertPoundsToKg() {
+            const pounds = parseFloat(document.getElementById('pounds').value);
+            const kilograms = Math.round(pounds * 0.45359237); // Round to the nearest whole number
+            
+            // Display the conversion result with a fade-in effect
+            const conversionResult = document.getElementById('conversionResult');
+            conversionResult.textContent = `${pounds.toFixed(2)} lbs is approximately ${kilograms} kg`;
+            conversionResult.style.display = 'block'; // Display the conversion result
+            fadeIn(conversionResult);
+        }
+
+        function fadeIn(element) {
+            element.style.opacity = '0'; // Set initial opacity to 0
+            element.style.transition = 'opacity 0.5s ease-in-out'; // Add a transition for a smoother fade-in
+            element.style.opacity = '1'; // Set opacity to 1 to trigger the fade-in
         }
     </script>
 </body>
