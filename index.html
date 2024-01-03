@@ -16,22 +16,73 @@
     <p id="result"></p>
     
     <script type="text/python">
-        # Your Python code goes here
-        def calculate_dosage():
-            try:
-                # Get the dosage and convert it to a float
-                dosage = float(document["dosage"].value)
-                
-                # Replace this with your calculation logic
-                dosage_ml = dosage / 10  # Example calculation
-                
-                # Update the result
-                document["result"].text = f"Required dosage in mL: {dosage_ml:.2f}"
-            except ValueError:
-                document["result"].text = "Invalid input. Please enter a valid numeric value."
+        import tkinter as tk
+from tkinter import ttk
+
+# Define a function to calculate drug dosage
+def calculate_dosage():
+    try:
+        # Get the selected drug and dosage needed from the user inputs
+        selected_drug = drug_var.get()
+        dosage_needed_mg = float(dosage_entry.get())
+        
+        # Retrieve the concentration for the selected drug from the dictionary
+        concentration_mg_per_ml = drugs[selected_drug]
+        
+        # Calculate the dosage in mL
+        dosage_ml = dosage_needed_mg / concentration_mg_per_ml
+        
+        # Display the result
+        result_label.config(text=f"Required dosage in mL: {dosage_ml:.2f}")
+    except ValueError:
+        result_label.config(text="Invalid input. Please enter valid numeric values.")
+
+# Main program
+if __name__ == "__main__":
+    # Create a dictionary of drugs and their concentrations (mg per mL)
+    drugs = {
+        "Rocuronium 10mg/mL": 10,
+        "Etomidate 2mg/mL": 2,
+        "Succinylcholine 20mg/mL": 20,
+        "Epinephrine 1:10 (0.1mg/mL)": 0.1,
+        "Amiodarone 50mg/mL": 50,
+        "Magnesium Sulfate 500mg/mL": 500,
+        "Calcium Chloride 100mg/mL": 100,
+        "50% Dextrose 500mg/mL": 500,
+        "25% Dextrose 250mg/mL": 250,
+        "Sodium Bicarbonate 1mEq/mL": 1,
+        "Atropine 0.1mg/mL": 0.1,
+        "Lidocaine 20mg/mL": 20
+    }
     
-        # Call the calculate_dosage function when the input changes
-        document["dosage"].bind("input", calculate_dosage)
+    # Create a GUI window
+    root = tk.Tk()
+    root.title("Paramedic Drug Dosage Calculator")
+    
+    # Create a label and entry for dosage input
+    dosage_label = tk.Label(root, text="Enter the drug dosage needed in mg:")
+    dosage_label.pack()
+    dosage_entry = tk.Entry(root)
+    dosage_entry.pack()
+    
+    # Create a dropdown menu for drug selection
+    drug_var = tk.StringVar()
+    drug_label = tk.Label(root, text="Select the drug:")
+    drug_label.pack()
+    drug_dropdown = ttk.Combobox(root, textvariable=drug_var, values=list(drugs.keys()))
+    drug_dropdown.pack()
+    
+    # Create a button to calculate the dosage
+    calculate_button = tk.Button(root, text="Calculate Dosage", command=calculate_dosage)
+    calculate_button.pack()
+    
+    # Create a label to display the result
+    result_label = tk.Label(root, text="")
+    result_label.pack()
+    
+    # Start the GUI event loop
+    root.mainloop()
+
     </script>
 </body>
 </html>
