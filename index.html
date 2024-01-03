@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramedic Calculator</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.9.2/brython.min.js"></script>
+</head>
+<body>
+    <h1>Paramedic Drug Dosage Calculator</h1>
+    
+    <label for="dosage">Enter the drug dosage needed in mg:</label>
+    <input type="text" id="dosage">
+    
+    <label for="result">Required dosage in mL:</label>
+    <p id="result"></p>
+    
+    <script type="text/python">
+        # Your Python code goes here
+        def calculate_dosage():
+            try:
+                # Get the dosage and convert it to a float
+                dosage = float(document["dosage"].value)
+                
+                # Replace this with your calculation logic
+                dosage_ml = dosage / 10  # Example calculation
+                
+                # Update the result
+                document["result"].text = f"Required dosage in mL: {dosage_ml:.2f}"
+            except ValueError:
+                document["result"].text = "Invalid input. Please enter a valid numeric value."
+    
+        # Call the calculate_dosage function when the input changes
+        document["dosage"].bind("input", calculate_dosage)
+    </script>
+</body>
+</html>
