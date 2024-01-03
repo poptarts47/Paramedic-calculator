@@ -12,6 +12,30 @@
             margin-top: 10px;
             border-radius: 5px;
             display: none; /* Initially hidden */
+            transition: background-color 0.5s ease-in-out; /* Fade-in transition for background color */
+        }
+        /* Mobile-first styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+        h1, h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -53,6 +77,9 @@
     
     <p id="conversionResult"></p>
 
+    <!-- New box for the answer -->
+    <div id="answerResult"></div>
+
     <script>
         function calculateDosage() {
             // Get selected medication and dosage in mg from the user inputs
@@ -76,7 +103,7 @@
                 // Add more medications and concentrations here
             };
 
-            // Calculate the desired dosage in mL based on the selected medication
+            // Check if the selected medication is in the concentrationValues object
             if (selectedMedication in concentrationValues) {
                 const concentrationMgPerMl = concentrationValues[selectedMedication];
                 const dosageMl = dosageMg / concentrationMgPerMl;
@@ -84,10 +111,18 @@
                 // Display the result with a fade-in effect
                 const result = document.getElementById('result');
                 result.textContent = `Desired dosage: ${dosageMl.toFixed(2)} mL`;
+                result.style.backgroundColor = 'rgba(0, 0, 255, 0.2)'; // Set background color
                 result.style.display = 'block'; // Display the result
                 fadeIn(result);
-            } else {
-                document.getElementById('result').textContent = "Invalid medication selection.";
+
+                // Calculate and display the answer in the new box
+                //const answerResult = document.getElementById('answerResult');
+                //answerResult.textContent = `The answer is: ${dosageMl * 2}`; // Replace with your calculation
+               //answerResult.style.backgroundColor = 'rgba(0, 0, 255, 0.2)'; // Set background color
+               // answerResult.style.display = 'block'; // Display the answer
+               // fadeIn(answerResult);
+            //} else {
+               // document.getElementById('result').textContent = "Invalid medication selection.";
             }
         }
 
@@ -98,6 +133,7 @@
             // Display the conversion result with a fade-in effect
             const conversionResult = document.getElementById('conversionResult');
             conversionResult.textContent = `${pounds.toFixed(2)} lbs is approximately ${kilograms} kg`;
+            conversionResult.style.backgroundColor = 'rgba(0, 0, 255, 0.2)'; // Set background color
             conversionResult.style.display = 'block'; // Display the conversion result
             fadeIn(conversionResult);
         }
@@ -105,7 +141,7 @@
         function fadeIn(element) {
             element.style.opacity = '0'; // Set initial opacity to 0
             element.style.transition = 'opacity 0.5s ease-in-out'; // Add a transition for a smoother fade-in
-            element.style.opacity = '1'; // Set opacity to 1 to trigger the fade-in
+            element.style.opacity = '1';
         }
     </script>
 </body>
